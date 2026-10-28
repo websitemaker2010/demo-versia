@@ -1,0 +1,881 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Соцветие — салон цветов в Верхней Пышме</title>
+<meta name="description" content="Салон цветов «Соцветие» в ТЦ «Рифей», Верхняя Пышма, ул. Мальцева, 8. Авторские букеты, композиции, доставка. Ежедневно 10:00–21:00.">
+<meta name="theme-color" content="#fbf7f3">
+<script>document.documentElement.classList.add('js')</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ===== Токены ===== */
+:root{
+  --bg:#fbf7f3; --bg2:#f3ebe4; --card:#ffffff; --ink:#2b2224; --muted:#6f6264;
+  --accent:#b8466a; --accent-d:#93324f; --accent-soft:#f7e3e9; --line:#e8ddd5;
+  --radius:22px; --radius-sm:14px;
+  --shadow:0 18px 40px -22px rgba(80,30,45,.35);
+  --gutter:clamp(16px,4vw,32px);
+  --section:clamp(64px,8vw,104px);
+  --gap:clamp(14px,2vw,24px);
+  --head-gap:clamp(28px,4vw,48px);
+  --header-h:68px;
+  --safe-b:env(safe-area-inset-bottom,0px);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+html.lock{overflow:hidden}
+body{background:var(--bg);color:var(--ink);font:16px/1.6 Manrope,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:clip}
+img,svg{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:6px}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.wrap{max-width:calc(1200px + 2*var(--gutter));margin:0 auto;padding:0 var(--gutter)}
+section{padding:var(--section) 0;scroll-margin-top:var(--header-h)}
+
+/* типографика */
+h1,h2,h3{font-family:"Cormorant Garamond",Georgia,serif;font-weight:600;line-height:1.08;letter-spacing:-.01em;overflow-wrap:break-word}
+h2{font-size:clamp(32px,4.2vw,50px);margin-bottom:12px}
+.eyebrow{font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:12px}
+.lead{color:var(--muted);max-width:56ch;font-size:clamp(15px,1.4vw,17px)}
+.sec-head{max-width:680px;margin-bottom:var(--head-gap)}
+
+/* ===== Кнопки ===== */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 28px;border-radius:999px;border:1.5px solid transparent;cursor:pointer;font:600 15px/1.2 Manrope,sans-serif;text-align:center;white-space:nowrap;transition:background-color .2s,border-color .2s,color .2s,box-shadow .2s,transform .2s}
+.btn:active{transform:translateY(1px)}
+.btn[disabled]{opacity:.5;cursor:not-allowed}
+.btn svg{width:18px;height:18px;flex:none;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.btn-primary{background:var(--accent);color:#fff;box-shadow:0 10px 24px -12px var(--accent)}
+.btn-primary:hover{background:var(--accent-d)}
+.btn-secondary{background:transparent;border-color:#d9cbc2;color:var(--ink)}
+.btn-secondary:hover{border-color:var(--ink)}
+.btn-light{background:#fff;border-color:var(--line);color:var(--ink)}
+.btn-light:hover{border-color:var(--ink)}
+.btn-sm{min-height:44px;padding:0 18px;font-size:14px}
+.btn-icon{width:44px;min-height:44px;padding:0;flex:none}
+.btn-text{display:inline-flex;align-items:center;gap:6px;min-height:44px;font-weight:600;color:var(--accent);border-bottom:1.5px solid transparent;transition:border-color .2s}
+.btn-text:hover{border-color:currentColor}
+.lead .btn-text{display:inline;min-height:0;white-space:nowrap}
+
+/* ===== Шапка ===== */
+header{position:sticky;top:0;z-index:50;background:rgba(251,247,243,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid transparent;transition:border-color .3s}
+header.scrolled,header.menu-open{border-color:var(--line)}
+.nav{display:flex;align-items:center;gap:24px;height:var(--header-h)}
+.logo{display:flex;align-items:center;gap:10px;font-family:"Cormorant Garamond",serif;font-size:28px;font-weight:600;margin-right:auto;min-height:44px}
+.logo svg{width:32px;height:32px}
+.menu{display:flex;gap:clamp(18px,2.4vw,32px);font-weight:500;font-size:15px}
+.menu a{position:relative;padding:8px 0}
+.menu a::after{content:"";position:absolute;left:0;bottom:2px;width:0;height:1.5px;background:var(--accent);transition:width .25s}
+.menu a:hover::after{width:100%}
+.menu-cta{display:none}
+.nav-phone{font-weight:700;white-space:nowrap;text-align:right;line-height:1.3}
+.nav-phone small{display:block;font-weight:500;color:var(--muted);font-size:12px}
+.nav-call{display:none}
+.burger{display:none;background:none;border:0;width:44px;height:44px;cursor:pointer;border-radius:12px;flex:none}
+.burger span{display:block;width:22px;height:2px;background:var(--ink);margin:5px auto;transition:transform .25s,opacity .2s}
+.burger[aria-expanded="true"] span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.burger[aria-expanded="true"] span:nth-child(2){opacity:0}
+.burger[aria-expanded="true"] span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+/* ===== Первый экран ===== */
+.hero{padding:clamp(28px,5vw,64px) 0 var(--section)}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);gap:clamp(32px,5vw,72px);align-items:center}
+.hero h1{font-size:clamp(38px,5vw,68px);margin-bottom:20px;text-wrap:balance}
+.hero h1 em{color:var(--accent);font-style:italic}
+.hero .lead{font-size:clamp(16px,1.5vw,18px);max-width:46ch;margin-bottom:32px}
+.hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:clamp(32px,4vw,44px)}
+.facts{display:grid;grid-template-columns:repeat(3,auto);justify-content:start;gap:12px clamp(20px,3vw,40px);padding-top:24px;border-top:1px solid var(--line);list-style:none}
+.fact b{display:block;font-family:"Cormorant Garamond",serif;font-size:clamp(24px,2.4vw,30px);line-height:1.1;font-weight:600;white-space:nowrap}
+.fact span{font-size:13px;color:var(--muted)}
+.hero-visual{position:relative;max-width:520px;width:100%;justify-self:end}
+.hero-art{position:relative;aspect-ratio:1/1.08;border-radius:999px 999px var(--radius) var(--radius);overflow:hidden;background:linear-gradient(160deg,#f6dce3,#efe3d3 60%,#e4ead9);box-shadow:var(--shadow)}
+.hero-art svg{position:absolute;inset:0;width:100%;height:100%}
+.badge{position:absolute;background:#fff;border-radius:14px;padding:10px 14px;box-shadow:var(--shadow);font-size:14px;font-weight:500;display:flex;gap:10px;align-items:center;white-space:nowrap}
+.badge .dot{width:9px;height:9px;border-radius:50%;background:#3fae5b;box-shadow:0 0 0 4px #3fae5b33}
+.badge-1{left:12px;bottom:28px}
+.badge-2{right:12px;top:18%}
+
+/* ===== Преимущества ===== */
+.features{background:var(--bg2)}
+.feat-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--gap)}
+.feat{background:var(--card);border-radius:var(--radius);padding:clamp(22px,2.4vw,30px)}
+.feat .ic{width:52px;height:52px;border-radius:16px;background:var(--accent-soft);display:grid;place-items:center;margin-bottom:18px;transition:background-color .35s}
+.feat .ic svg{width:26px;height:26px;stroke:var(--accent);fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;transition:stroke .35s}
+.feat h3{font-size:24px;margin-bottom:8px}
+.feat p{color:var(--muted);font-size:15px}
+.feat:hover .ic{background:var(--accent)}
+.feat:hover .ic svg{stroke:#fff}
+
+/* ===== Каталог ===== */
+.cat-top{display:flex;align-items:flex-end;justify-content:space-between;gap:16px 32px;flex-wrap:wrap;margin-bottom:28px}
+.cat-top .sec-head{margin-bottom:0}
+.tabs{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:28px}
+.tab{min-height:44px;padding:0 20px;border-radius:999px;border:1.5px solid var(--line);background:transparent;cursor:pointer;font:500 14px Manrope,sans-serif;color:var(--ink);white-space:nowrap;transition:background-color .2s,border-color .2s,color .2s}
+.tab:hover{border-color:var(--accent);color:var(--accent)}
+.tab[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--gap)}
+.card{background:var(--card);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;container:card/inline-size}
+.card.hide{display:none}
+.card-art{aspect-ratio:1/1;position:relative;background:var(--bg2)}
+.card-art svg{width:100%;height:100%}
+.tag{position:absolute;top:12px;left:12px;background:#fff;border-radius:999px;padding:4px 12px;font-size:12px;font-weight:700}
+.card-body{padding:clamp(14px,2vw,22px);display:flex;flex-direction:column;flex:1}
+.card-body h3{font-size:clamp(20px,2vw,25px);margin-bottom:6px}
+.card-body h3+p{font-size:14px;color:var(--muted);margin-bottom:16px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+/* узкая карточка: [цена  +] / [Подробнее на всю ширину]; широкая — всё в одну строку */
+.card-foot{margin-top:auto;display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"price add" "more more";align-items:center;gap:10px 8px}
+.card-foot .price{grid-area:price}
+.card-foot .add{grid-area:add}
+.card-foot .more{grid-area:more;width:100%;padding:0 12px}
+.price{font-weight:700;font-size:clamp(17px,1.6vw,19px);white-space:nowrap}
+.price small{font-weight:500;color:var(--muted);font-size:13px}
+.add{background:var(--bg2);border:0}
+.add:hover{background:var(--accent);color:#fff}
+.add svg{stroke-width:2.2}
+@container card (min-width:300px){
+  .card-foot{grid-template-columns:minmax(0,1fr) auto auto;grid-template-areas:"price more add"}
+  .card-foot .more{width:auto;padding:0 18px}
+}
+.cat-note{margin-top:24px;font-size:14px;color:var(--muted);text-align:center}
+
+/* ===== Поводы ===== */
+.occ{background:var(--ink);color:#fff}
+.occ .lead{color:#d2c7c9}
+.occ .eyebrow{color:#f2a4bc}
+.occ-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px}
+.occ-item{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;min-height:120px;border:1px solid #ffffff26;border-radius:18px;padding:20px 12px;text-align:center;transition:background-color .25s,border-color .25s}
+.occ-item:hover{background:#ffffff10;border-color:#f2a4bc}
+.occ-item:focus-visible{outline-color:#f2a4bc}
+.occ-item .em{font-size:30px;line-height:1}
+.occ-item b{font-weight:600;font-size:15px}
+
+/* ===== Шаги ===== */
+.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--gap);counter-reset:s}
+.step{position:relative;padding:clamp(22px,2.4vw,28px);background:var(--accent-soft);border-radius:var(--radius)}
+.step::before{counter-increment:s;content:"0" counter(s);display:block;margin-bottom:14px;font-family:"Cormorant Garamond",serif;font-size:46px;color:var(--accent);line-height:1}
+.step h3{font-size:24px;margin-bottom:8px}
+.step p{color:var(--muted);font-size:15px}
+.step .outline{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+.step .outline rect{fill:none;stroke:var(--accent);stroke-width:2;stroke-dasharray:var(--len,3000);stroke-dashoffset:var(--len,3000)}
+.steps.draw .outline rect{animation:draw 1s ease-out forwards}
+.steps.draw .step:nth-child(2) .outline rect{animation-delay:.8s}
+.steps.draw .step:nth-child(3) .outline rect{animation-delay:1.6s}
+.steps.draw .step:nth-child(4) .outline rect{animation-delay:2.4s}
+@keyframes draw{to{stroke-dashoffset:0}}
+
+/* ===== Заявка ===== */
+.order{background:var(--bg2)}
+.order-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:clamp(32px,5vw,64px);align-items:start}
+.order-grid .sec-head{margin-bottom:0}
+.perks{list-style:none;margin-top:28px;display:grid;gap:14px}
+.perks li{display:flex;gap:12px;align-items:flex-start}
+.perks li::before{content:"";flex:none;width:22px;height:22px;border-radius:50%;background:var(--accent) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3'%3E%3Cpath d='M6 12l4 4 8-8'/%3E%3C/svg%3E") center/14px no-repeat;margin-top:2px}
+form{background:var(--card);border-radius:var(--radius);padding:clamp(20px,3vw,36px);box-shadow:var(--shadow)}
+.row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 14px}
+.field{margin-bottom:16px;min-width:0}
+.field>label,.field legend{display:block;font-size:13px;font-weight:600;margin-bottom:6px}
+fieldset.field{border:0}
+.field input,.field select,.field textarea{width:100%;min-height:50px;padding:12px 16px;border-radius:var(--radius-sm);border:1.5px solid var(--line);font:16px Manrope,sans-serif;background:var(--bg);color:var(--ink);transition:border-color .2s,background-color .2s;-webkit-appearance:none;appearance:none}
+.field select{background:var(--bg) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232b2224' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") right 14px center/18px no-repeat;padding-right:42px}
+.field textarea{resize:vertical;min-height:96px}
+.field input:focus,.field select:focus,.field textarea:focus{outline:0;border-color:var(--accent);background-color:#fff}
+.field [aria-invalid="true"]{border-color:#c0392b;background-color:#fff6f5}
+.err{display:block;color:#b02a1e;font-size:13px;margin-top:6px;min-height:0}
+.err:empty{display:none}
+.budget{display:flex;gap:8px;flex-wrap:wrap}
+.budget input{position:absolute;opacity:0;width:1px;height:1px}
+.budget label{display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border-radius:999px;border:1.5px solid var(--line);cursor:pointer;font-size:14px;font-weight:500;transition:background-color .2s,border-color .2s,color .2s}
+.budget label:hover{border-color:var(--accent)}
+.budget input:checked+label{background:var(--accent);border-color:var(--accent);color:#fff}
+.budget input:focus-visible+label{outline:3px solid var(--accent);outline-offset:3px}
+form .btn{width:100%;margin-top:4px}
+.form-status{margin-top:14px;padding:12px 14px;border-radius:var(--radius-sm);background:var(--accent-soft);font-size:14px}
+.form-status:empty{display:none}
+.form-note{font-size:12px;color:var(--muted);margin-top:12px;text-align:center}
+
+/* ===== Отзывы ===== */
+.rev-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--gap)}
+.rev{background:var(--card);border-radius:var(--radius);padding:clamp(22px,2.4vw,28px);border:1px solid var(--line);display:flex;flex-direction:column}
+.stars{color:#c98b1e;letter-spacing:2px;margin-bottom:12px}
+.rev p{font-size:15px;margin-bottom:18px;flex:1}
+.rev b{font-size:14px}
+.rev span{font-size:13px;color:var(--muted);display:block}
+.rev-links{margin-top:clamp(24px,3vw,36px);display:flex;align-items:center;justify-content:center;gap:12px 18px;flex-wrap:wrap;text-align:center}
+.rev-links p{color:var(--muted);font-size:15px}
+.rev-btns{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.rev-btns .btn{padding:0 22px}
+@media (max-width:479px){.rev-btns{width:100%}.rev-btns .btn{flex:1 1 0;padding:0 12px}}
+
+/* ===== Контакты ===== */
+.contacts{background:var(--bg2)}
+.contacts-grid{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:var(--gap);align-items:stretch}
+.c-card{background:var(--card);border-radius:var(--radius);padding:clamp(22px,3vw,36px)}
+.c-line{display:flex;gap:16px;padding:16px 0;border-bottom:1px solid var(--line)}
+.c-line:first-child{padding-top:0}
+.c-line svg{flex:none;width:24px;height:24px;stroke:var(--accent);fill:none;stroke-width:1.7}
+.c-line small{display:block;color:var(--muted);font-size:13px}
+.c-line b{font-size:17px;font-weight:600}
+.c-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.c-actions .btn{flex:1 1 auto}
+.map{border-radius:var(--radius);overflow:hidden;min-height:clamp(300px,40vw,440px);background:var(--card)}
+.map iframe{display:block;width:100%;height:100%;min-height:inherit;border:0}
+
+footer{padding:32px 0;color:var(--muted);font-size:14px}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px 24px}
+
+/* ===== Мобильная панель ===== */
+.mbar{display:none;position:fixed;left:12px;right:12px;bottom:calc(12px + var(--safe-b));z-index:60;gap:10px}
+.mbar .btn{flex:1;box-shadow:0 10px 30px -12px rgba(43,34,36,.45)}
+
+.toast{position:fixed;left:50%;bottom:calc(24px + var(--safe-b));transform:translate(-50%,140%);background:var(--ink);color:#fff;padding:14px 22px;border-radius:14px;font-size:15px;z-index:100;transition:transform .35s,opacity .35s,visibility .35s;width:max-content;max-width:calc(100% - 32px);text-align:center;opacity:0;visibility:hidden}
+.toast.show{transform:translate(-50%,0);opacity:1;visibility:visible}
+
+/* ===== Окно товара ===== */
+.pd{margin:auto;padding:0;border:0;width:calc(100% - 32px);max-width:880px;max-height:calc(100vh - 48px);max-height:calc(100dvh - 48px);border-radius:28px;background:var(--card);color:var(--ink);box-shadow:0 40px 80px -30px rgba(60,20,30,.5);overflow:hidden}
+.pd[open]{display:flex;flex-direction:column;animation:pdIn .3s cubic-bezier(.2,.8,.2,1)}
+.pd::backdrop{background:rgba(43,34,36,.55)}
+@keyframes pdIn{from{opacity:0;transform:translateY(20px)}}
+.pd-scroll{overflow:auto;overscroll-behavior:contain;flex:1;min-height:0}
+.pd-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr)}
+.pd-art{background:var(--bg2);aspect-ratio:1/1}
+.pd-art svg{width:100%;height:100%}
+.pd-body{padding:clamp(22px,3.4vw,40px);display:flex;flex-direction:column}
+.pd-body h2{font-size:clamp(30px,3.4vw,40px);margin:0 48px 8px 0}
+.pd-desc{color:var(--muted);font-size:15px;margin-bottom:14px}
+.pd-sell{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:clamp(19px,1.9vw,21px);line-height:1.35;color:var(--accent);margin-bottom:20px}
+.pd-specs{list-style:none;margin-bottom:24px}
+.pd-specs li{display:flex;justify-content:space-between;gap:16px;padding:10px 0;border-bottom:1px dashed var(--line);font-size:14px}
+.pd-specs li span{color:var(--muted);flex:none}
+.pd-specs li b{font-weight:600;text-align:right}
+.pd-foot{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.pd-close{position:absolute;top:12px;right:12px;width:44px;height:44px;border-radius:50%;border:0;background:#fff;cursor:pointer;display:grid;place-items:center;box-shadow:0 6px 16px -8px rgba(0,0,0,.35);z-index:2;transition:background-color .2s}
+.pd-close:hover{background:var(--bg2)}
+.pd-close svg{width:20px;height:20px;stroke:var(--ink);stroke-width:2;fill:none}
+
+/* ===== Появление ===== */
+.js .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s,transform .7s}
+.js .reveal.in{opacity:1;transform:none;transition:opacity .7s,transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s}
+.feat.reveal.in:hover{transform:translateY(-10px);box-shadow:var(--shadow)}
+.card.reveal.in:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+
+/* ===== Адаптив ===== */
+@media (max-width:1199px){
+  .feat-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .occ-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media (max-width:1023px){
+  .burger{display:block}
+  .nav{gap:12px}
+  .menu{position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0;background:var(--bg);padding:8px var(--gutter) 20px;border-bottom:1px solid var(--line);box-shadow:0 20px 30px -24px rgba(43,34,36,.4);font-size:18px;visibility:hidden;opacity:0;transform:translateY(-8px);transition:opacity .2s,transform .2s,visibility 0s .2s}
+  .menu.open{visibility:visible;opacity:1;transform:none;transition:opacity .2s,transform .2s}
+  .menu a{padding:12px 0;border-bottom:1px solid var(--line)}
+  .menu a::after{display:none}
+  .menu-cta{display:flex;gap:10px;padding-top:16px}
+  .menu-cta .btn{flex:1;border-bottom:1.5px solid transparent;padding:0 16px}
+  .menu-cta .btn-light{border-color:var(--line)}
+  .steps{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .order-grid{grid-template-columns:1fr}
+  .order-grid .sec-head{max-width:640px}
+}
+@media (max-width:899px){
+  .rev-grid{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;margin:0 calc(-1*var(--gutter));padding:0 var(--gutter) 6px;scroll-padding:0 var(--gutter);scrollbar-width:none}
+  .rev-grid::-webkit-scrollbar{display:none}
+  .rev{flex:0 0 min(78%,360px);scroll-snap-align:start}
+  .contacts-grid{grid-template-columns:1fr}
+}
+@media (max-width:767px){
+  :root{--header-h:62px}
+  .logo{font-size:25px}
+  .nav-phone{display:none}
+  .nav-call{display:inline-flex}
+  .hero-grid{grid-template-columns:1fr}
+  .hero-visual{justify-self:center;max-width:380px}
+  .hero-art{aspect-ratio:1/1}
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .tabs{flex-wrap:nowrap;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x proximity;margin:0 calc(-1*var(--gutter)) 24px;padding:2px var(--gutter) 8px;scrollbar-width:none;-webkit-mask-image:linear-gradient(90deg,#000 85%,transparent);mask-image:linear-gradient(90deg,#000 85%,transparent)}
+  .tabs::-webkit-scrollbar{display:none}
+  .tab{scroll-snap-align:start;flex:none}
+  .tabs.at-end{-webkit-mask-image:none;mask-image:none}
+  .mbar{display:flex}
+  footer{padding-bottom:calc(96px + var(--safe-b))}
+  .toast{bottom:calc(84px + var(--safe-b))}
+  /* окно товара — нижняя шторка */
+  .pd{width:100%;max-width:100%;margin:auto 0 0;max-height:calc(100vh - 24px);max-height:calc(100dvh - 24px);border-radius:24px 24px 0 0}
+  .pd[open]{animation-name:pdUp}
+  @keyframes pdUp{from{transform:translateY(40px);opacity:0}}
+  .pd-grid{grid-template-columns:1fr}
+  .pd-art{aspect-ratio:auto;height:min(36vh,300px)}
+  .pd-art svg{height:100%}
+  .pd-body{padding:22px var(--gutter) 0}
+  .pd-foot{position:sticky;bottom:0;background:#fff;margin:0 calc(-1*var(--gutter));padding:14px var(--gutter) calc(14px + var(--safe-b));border-top:1px solid var(--line);flex-wrap:nowrap}
+  .pd-foot .btn{flex:1}
+}
+@media (max-width:639px){
+  .feat-grid{grid-template-columns:1fr;gap:12px}
+  .feat{display:grid;grid-template-columns:52px 1fr;gap:0 16px;align-items:start}
+  .feat .ic{margin:0;grid-row:span 2}
+  .feat h3{font-size:22px;margin-bottom:4px}
+  .steps{grid-template-columns:1fr;gap:12px}
+  .step{display:grid;grid-template-columns:auto 1fr;gap:0 16px}
+  .step::before{grid-row:span 2;margin:0;font-size:40px}
+  .step h3{font-size:22px;margin-bottom:4px}
+  .occ-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .occ-item{min-height:100px}
+}
+@media (max-width:479px){
+  .hero-actions{flex-direction:column}
+  .hero-actions .btn{width:100%}
+  .facts{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+  .fact b{font-size:21px;white-space:normal}
+  .fact span{font-size:12px;line-height:1.35;display:block}
+  .row{grid-template-columns:1fr}
+  .badge{font-size:13px;padding:8px 12px}
+  .c-actions .btn{flex:1 1 100%}
+}
+@media (max-width:359px){
+  .grid{grid-template-columns:1fr}
+  .logo{font-size:23px}
+  .logo svg{width:28px;height:28px}
+  .badge-2{display:none}
+}
+@media (min-width:1440px){
+  :root{--gutter:40px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important;animation-delay:0s!important}
+  .js .reveal{opacity:1;transform:none}
+  .step .outline rect{stroke-dashoffset:0}
+}
+</style>
+</head>
+<body>
+
+<header id="top">
+  <div class="wrap nav">
+    <a href="#top" class="logo" aria-label="Соцветие — на начало страницы">
+      <svg viewBox="0 0 40 40" aria-hidden="true"><g transform="translate(20 18)"><g fill="#b8466a"><ellipse rx="5" ry="9" cy="-8"/><ellipse rx="5" ry="9" cy="-8" transform="rotate(72)"/><ellipse rx="5" ry="9" cy="-8" transform="rotate(144)"/><ellipse rx="5" ry="9" cy="-8" transform="rotate(216)"/><ellipse rx="5" ry="9" cy="-8" transform="rotate(288)"/></g><circle r="4" fill="#f4c26b"/></g></svg>
+      Соцветие
+    </a>
+    <nav class="menu" id="menu" aria-label="Основное меню">
+      <a href="#catalog">Каталог</a>
+      <a href="#occasions">Поводы</a>
+      <a href="#how">Как заказать</a>
+      <a href="#order">Заявка</a>
+      <a href="#contacts">Контакты</a>
+      <div class="menu-cta">
+        <a class="btn btn-light btn-sm" href="tel:+79049806673">Позвонить</a>
+        <a class="btn btn-primary btn-sm" href="https://wa.me/79049806673" target="_blank" rel="noopener">WhatsApp</a>
+      </div>
+    </nav>
+    <a class="nav-phone" href="tel:+79049806673">+7 (904) 980-66-73<small>ежедневно 10:00–21:00</small></a>
+    <a class="btn btn-light btn-icon nav-call" href="tel:+79049806673" aria-label="Позвонить: +7 (904) 980-66-73"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3h4l2 5-2.5 1.5a11 11 0 006 6L16 13l5 2v4a2 2 0 01-2 2A16 16 0 013 5a2 2 0 012-2z"/></svg></a>
+    <button class="burger" id="burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main>
+<section class="hero" aria-labelledby="heroTitle">
+  <div class="wrap hero-grid">
+    <div>
+      <p class="eyebrow">Салон цветов · Верхняя Пышма</p>
+      <h1 id="heroTitle">Цветы, которые скажут <em>всё за вас</em></h1>
+      <p class="lead">Авторские букеты и композиции из свежих цветов в ТЦ «Рифей». Соберём букет под ваш повод и бюджет, упакуем и доставим по городу.</p>
+      <div class="hero-actions">
+        <a href="#catalog" class="btn btn-primary">Выбрать букет <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a href="#order" class="btn btn-secondary">Собрать на заказ</a>
+      </div>
+      <ul class="facts">
+        <li class="fact"><b>10–21</b><span>работаем каждый день</span></li>
+        <li class="fact"><b>от 60 мин</b><span>доставка по городу</span></li>
+        <li class="fact"><b>Мальцева, 8</b><span>ТЦ «Рифей»</span></li>
+      </ul>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-art" id="heroArt" role="img" aria-label="Иллюстрация букета"></div>
+      <div class="badge badge-1"><span class="dot" aria-hidden="true"></span>Свежая поставка сегодня</div>
+      <div class="badge badge-2"><span aria-hidden="true">🎀</span> Упаковка в подарок</div>
+    </div>
+  </div>
+</section>
+
+<section class="features" aria-labelledby="featTitle">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Почему «Соцветие»</p>
+      <h2 id="featTitle">Маленький салон с большим вниманием</h2>
+    </div>
+    <div class="feat-grid">
+      <div class="feat reveal"><div class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22V11M12 11c0-4 3-7 7-7 0 4-3 7-7 7zM12 11C12 7 9 4 5 4c0 4 3 7 7 7z"/></svg></div><h3>Свежие цветы</h3><p>Регулярные поставки и правильное хранение — букет радует дольше.</p></div>
+      <div class="feat reveal"><div class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.4l-5.2 2.7 1-5.8L3.5 9.2l5.9-.9z"/></svg></div><h3>Авторская сборка</h3><p>Флористы соберут букет с нуля под ваш вкус, повод и бюджет.</p></div>
+      <div class="feat reveal"><div class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/></svg></div><h3>Доставка</h3><p>Привезём по Верхней Пышме, сфотографируем букет перед отправкой.</p></div>
+      <div class="feat reveal"><div class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11h16v10H4zM2 7h20v4H2zM12 7v14M12 7S10 3 7.5 3 5 6 7 7M12 7s2-4 4.5-4S19 6 17 7"/></svg></div><h3>Подарки к букету</h3><p>Мягкие игрушки, открытки и сладости — всё в одном месте.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="catalog" aria-labelledby="catTitle">
+  <div class="wrap">
+    <div class="cat-top">
+      <div class="sec-head">
+        <p class="eyebrow">Каталог</p>
+        <h2 id="catTitle">Популярные букеты</h2>
+        <p class="lead">Нажмите «+», чтобы добавить букет в заявку, или «Подробнее», чтобы посмотреть состав.</p>
+      </div>
+    </div>
+    <div class="tabs" id="tabs" role="group" aria-label="Категории букетов">
+      <button class="tab" type="button" data-f="all" aria-pressed="true">Все</button>
+      <button class="tab" type="button" data-f="author" aria-pressed="false">Авторские</button>
+      <button class="tab" type="button" data-f="roses" aria-pressed="false">Розы</button>
+      <button class="tab" type="button" data-f="mono" aria-pressed="false">Монобукеты</button>
+      <button class="tab" type="button" data-f="box" aria-pressed="false">В коробках</button>
+      <button class="tab" type="button" data-f="gift" aria-pressed="false">Подарки</button>
+    </div>
+    <p class="sr-only" id="catCount" aria-live="polite"></p>
+    <div class="grid" id="grid"></div>
+    <p class="cat-note">Цены указаны ориентировочно — точную стоимость назовёт флорист в зависимости от сезона.</p>
+  </div>
+</section>
+
+<section class="occ" id="occasions" aria-labelledby="occTitle">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Поводы</p>
+      <h2 id="occTitle">Цветы найдутся к любому поводу</h2>
+      <p class="lead">Выберите повод — и мы предложим подходящие варианты.</p>
+    </div>
+    <div class="occ-grid">
+      <a class="occ-item" href="#order" data-occ="День рождения"><span class="em" aria-hidden="true">🎂</span><b>День рождения</b></a>
+      <a class="occ-item" href="#order" data-occ="Свидание"><span class="em" aria-hidden="true">💌</span><b>Свидание</b></a>
+      <a class="occ-item" href="#order" data-occ="1 сентября"><span class="em" aria-hidden="true">🎒</span><b>1 сентября</b></a>
+      <a class="occ-item" href="#order" data-occ="Свадьба"><span class="em" aria-hidden="true">💍</span><b>Свадьба</b></a>
+      <a class="occ-item" href="#order" data-occ="Выписка из роддома"><span class="em" aria-hidden="true">👶</span><b>Выписка</b></a>
+      <a class="occ-item" href="#order" data-occ="Без повода"><span class="em" aria-hidden="true">🌷</span><b>Без повода</b></a>
+    </div>
+  </div>
+</section>
+
+<section id="how" aria-labelledby="howTitle">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Как заказать</p>
+      <h2 id="howTitle">Четыре шага до улыбки</h2>
+    </div>
+    <ol class="steps" style="list-style:none">
+      <li class="step reveal"><h3>Выберите букет</h3><p>Из каталога или опишите идею — соберём индивидуально.</p></li>
+      <li class="step reveal"><h3>Оставьте заявку</h3><p>Через форму, по телефону или в мессенджере.</p></li>
+      <li class="step reveal"><h3>Согласуем фото</h3><p>Пришлём фото готового букета перед доставкой.</p></li>
+      <li class="step reveal"><h3>Доставим</h3><p>Курьером по Верхней Пышме или заберите сами в ТЦ «Рифей».</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="order" id="order" aria-labelledby="orderTitle">
+  <div class="wrap order-grid">
+    <div class="sec-head">
+      <p class="eyebrow">Букет на заказ</p>
+      <h2 id="orderTitle">Расскажите о поводе — остальное мы возьмём на себя</h2>
+      <p class="lead">Заполните форму — мы соберём из неё готовое сообщение для WhatsApp, останется только нажать «Отправить». Или просто позвоните: <a class="btn-text" href="tel:+79049806673">+7 (904) 980-66-73</a></p>
+      <ul class="perks">
+        <li>Подберём цветы под любимые оттенки получателя</li>
+        <li>Бесплатная открытка с вашим текстом</li>
+        <li>Фото букета перед отправкой</li>
+        <li>Оплата при получении или онлайн</li>
+      </ul>
+    </div>
+    <form id="form" novalidate aria-describedby="formNote">
+      <div class="row">
+        <div class="field"><label for="name">Ваше имя</label><input id="name" name="name" autocomplete="name" required placeholder="Анна" aria-describedby="nameErr"><span class="err" id="nameErr"></span></div>
+        <div class="field"><label for="phone">Телефон</label><input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required placeholder="+7 (___) ___-__-__" aria-describedby="phoneErr"><span class="err" id="phoneErr"></span></div>
+      </div>
+      <div class="row">
+        <div class="field"><label for="occ">Повод</label>
+          <select id="occ" name="occasion"><option>День рождения</option><option>Свидание</option><option>1 сентября</option><option>Свадьба</option><option>Выписка из роддома</option><option>Без повода</option></select></div>
+        <div class="field"><label for="date">Дата</label><input id="date" name="date" type="date" aria-describedby="dateErr"><span class="err" id="dateErr"></span></div>
+      </div>
+      <fieldset class="field"><legend>Бюджет</legend>
+        <div class="budget">
+          <input type="radio" name="budget" id="b1" value="до 2 000 ₽"><label for="b1">до 2 000 ₽</label>
+          <input type="radio" name="budget" id="b2" value="2–4 000 ₽" checked><label for="b2">2–4 000 ₽</label>
+          <input type="radio" name="budget" id="b3" value="4–7 000 ₽"><label for="b3">4–7 000 ₽</label>
+          <input type="radio" name="budget" id="b4" value="от 7 000 ₽"><label for="b4">от 7 000 ₽</label>
+        </div>
+      </fieldset>
+      <div class="field"><label for="msg">Пожелания</label><textarea id="msg" name="message" rows="3" placeholder="Например: нежные пастельные тона, без лилий"></textarea></div>
+      <button class="btn btn-primary" type="submit"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1.3-4A8 8 0 1112 20a8 8 0 01-4-1z"/></svg>Отправить через WhatsApp</button>
+      <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+      <p class="form-note" id="formNote">Заявка откроется в WhatsApp готовым сообщением — останется только отправить. Нажимая кнопку, вы соглашаетесь на обработку персональных данных.</p>
+    </form>
+  </div>
+</section>
+
+<section id="reviews" aria-labelledby="revTitle">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Отзывы</p>
+      <h2 id="revTitle">Что говорят покупатели</h2>
+    </div>
+    <div class="rev-grid">
+      <div class="rev reveal"><div class="stars" aria-label="5 из 5">★★★★★</div><p>Заказывала букет маме на юбилей — собрали очень нежно, ровно как просила. Цветы стояли больше недели.</p><b>Покупательница</b></div>
+      <div class="rev reveal"><div class="stars" aria-label="5 из 5">★★★★★</div><p>Удобно, что салон прямо в «Рифее»: забежал после работы, через 15 минут букет был готов.</p><b>Покупатель</b></div>
+      <div class="rev reveal"><div class="stars" aria-label="5 из 5">★★★★★</div><p>Помогли уложиться в бюджет и при этом букет выглядел дорого. Добавили открытку и мишку.</p><b>Покупательница</b></div>
+    </div>
+    <div class="rev-links">
+      <p>Больше отзывов — на картах:</p>
+      <div class="rev-btns">
+        <a class="btn btn-secondary btn-sm" href="https://yandex.ru/maps/?text=%D0%A1%D0%BE%D1%86%D0%B2%D0%B5%D1%82%D0%B8%D0%B5%20%D0%92%D0%B5%D1%80%D1%85%D0%BD%D1%8F%D1%8F%20%D0%9F%D1%8B%D1%88%D0%BC%D0%B0%20%D0%9C%D0%B0%D0%BB%D1%8C%D1%86%D0%B5%D0%B2%D0%B0%208" target="_blank" rel="noopener">Яндекс Карты</a>
+        <a class="btn btn-secondary btn-sm" href="https://2gis.ru/search/%D0%A1%D0%BE%D1%86%D0%B2%D0%B5%D1%82%D0%B8%D0%B5%20%D0%92%D0%B5%D1%80%D1%85%D0%BD%D1%8F%D1%8F%20%D0%9F%D1%8B%D1%88%D0%BC%D0%B0%20%D0%9C%D0%B0%D0%BB%D1%8C%D1%86%D0%B5%D0%B2%D0%B0%208" target="_blank" rel="noopener">2ГИС</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contacts" id="contacts" aria-labelledby="contTitle">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Контакты</p>
+      <h2 id="contTitle">Ждём вас в салоне</h2>
+    </div>
+    <div class="contacts-grid">
+      <div class="c-card">
+        <div class="c-line"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s7-6.5 7-12a7 7 0 10-14 0c0 5.5 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg><div><small>Адрес</small><b>Верхняя Пышма, ул. Мальцева, 8</b><small>ТЦ «Рифей»</small></div></div>
+        <div class="c-line"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><div><small>Режим работы</small><b>Ежедневно 10:00–21:00</b></div></div>
+        <div class="c-line"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3h4l2 5-2.5 1.5a11 11 0 006 6L16 13l5 2v4a2 2 0 01-2 2A16 16 0 013 5a2 2 0 012-2z"/></svg><div><small>Телефон</small><b><a href="tel:+79049806673">+7 (904) 980-66-73</a></b></div></div>
+        <div class="c-actions">
+          <a class="btn btn-primary btn-sm" href="https://wa.me/79049806673" target="_blank" rel="noopener">Написать в WhatsApp</a>
+          <a class="btn btn-secondary btn-sm" href="https://yandex.ru/maps/?text=%D0%92%D0%B5%D1%80%D1%85%D0%BD%D1%8F%D1%8F%20%D0%9F%D1%8B%D1%88%D0%BC%D0%B0%2C%20%D1%83%D0%BB%D0%B8%D1%86%D0%B0%20%D0%9C%D0%B0%D0%BB%D1%8C%D1%86%D0%B5%D0%B2%D0%B0%2C%208" target="_blank" rel="noopener">Открыть в Яндекс Картах</a>
+        </div>
+      </div>
+      <div class="map">
+        <iframe title="Салон «Соцветие» на карте: Верхняя Пышма, ул. Мальцева, 8" loading="lazy" src="https://yandex.ru/map-widget/v1/?text=%D0%92%D0%B5%D1%80%D1%85%D0%BD%D1%8F%D1%8F%20%D0%9F%D1%8B%D1%88%D0%BC%D0%B0%2C%20%D1%83%D0%BB%D0%B8%D1%86%D0%B0%20%D0%9C%D0%B0%D0%BB%D1%8C%D1%86%D0%B5%D0%B2%D0%B0%2C%208&amp;z=16"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Салон цветов «Соцветие», Верхняя Пышма</span>
+    <span>ул. Мальцева, 8 · ежедневно 10:00–21:00</span>
+  </div>
+</footer>
+
+<div class="mbar">
+  <a class="btn btn-light" href="tel:+79049806673"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3h4l2 5-2.5 1.5a11 11 0 006 6L16 13l5 2v4a2 2 0 01-2 2A16 16 0 013 5a2 2 0 012-2z"/></svg>Позвонить</a>
+  <a class="btn btn-primary" href="https://wa.me/79049806673" target="_blank" rel="noopener">WhatsApp</a>
+</div>
+
+<dialog class="pd" id="pd" aria-labelledby="pdTitle">
+  <button class="pd-close" type="button" aria-label="Закрыть"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  <div class="pd-scroll">
+    <div class="pd-grid">
+      <div class="pd-art" aria-hidden="true"></div>
+      <div class="pd-body">
+        <h2 id="pdTitle"></h2>
+        <p class="pd-desc"></p>
+        <p class="pd-sell"></p>
+        <ul class="pd-specs"></ul>
+        <div class="pd-foot"><p class="price"></p><button class="btn btn-primary pd-add" type="button">Добавить в заявку</button></div>
+      </div>
+    </div>
+  </div>
+</dialog>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+// ---------- Процедурные иллюстрации цветов ----------
+let uid = 0;
+function petalFlower(x, y, r, n, c1, c2, rot = 0) {
+  const id = 'g' + (uid++);
+  let s = `<defs><radialGradient id="${id}"><stop offset="0" stop-color="${c2}"/><stop offset="1" stop-color="${c1}"/></radialGradient></defs><g transform="translate(${x} ${y}) rotate(${rot})">`;
+  for (let i = 0; i < n; i++) s += `<ellipse rx="${r * .42}" ry="${r * .62}" cy="${-r * .5}" fill="url(#${id})" transform="rotate(${i * 360 / n})"/>`;
+  return s + `<circle r="${r * .22}" fill="#f2c46d"/><circle r="${r * .1}" fill="#c98b35"/></g>`;
+}
+function rose(x, y, r, c1, c2) {
+  const id = 'g' + (uid++);
+  let s = `<defs><radialGradient id="${id}" cx=".4" cy=".35"><stop offset="0" stop-color="${c2}"/><stop offset="1" stop-color="${c1}"/></radialGradient></defs><g transform="translate(${x} ${y})"><circle r="${r}" fill="url(#${id})"/>`;
+  for (let i = 0; i < 4; i++) {
+    const rr = r * (0.82 - i * 0.2);
+    s += `<path d="M${-rr} 0 A${rr} ${rr} 0 0 1 ${rr * .7} ${-rr * .7}" fill="none" stroke="${c1}" stroke-opacity=".55" stroke-width="${r * .07}" stroke-linecap="round" transform="rotate(${i * 95})"/>`;
+  }
+  return s + '</g>';
+}
+function tulip(x, y, r, c1, c2) {
+  return `<g transform="translate(${x} ${y})"><path d="M${-r * .6} ${-r * .2} Q${-r * .7} ${r * .8} 0 ${r * .8} Q${r * .7} ${r * .8} ${r * .6} ${-r * .2} L${r * .3} ${r * .2} L0 ${-r * .5} L${-r * .3} ${r * .2}Z" fill="${c1}"/><path d="M0 ${-r * .5} L${-r * .25} ${r * .7} Q0 ${r * .85} ${r * .25} ${r * .7}Z" fill="${c2}" opacity=".7"/></g>`;
+}
+function leaf(x, y, len, ang, c = '#6f8f63') {
+  return `<path d="M0 0 Q${len * .5} ${-len * .28} ${len} 0 Q${len * .5} ${len * .28} 0 0Z" fill="${c}" transform="translate(${x} ${y}) rotate(${ang})"/>`;
+}
+function gyps(x, y, n, spread, rnd) {
+  let s = '';
+  for (let i = 0; i < n; i++) {
+    const a = rnd() * 6.28, d = rnd() * spread;
+    s += `<circle cx="${x + Math.cos(a) * d}" cy="${y + Math.sin(a) * d}" r="${2 + rnd() * 2.5}" fill="#fff" opacity=".95"/>`;
+  }
+  return s;
+}
+function seeded(seed) { let t = seed; return () => (t = (t * 9301 + 49297) % 233280) / 233280; }
+
+// type: mix | roses | mono | box | gift
+function bouquet(type, pal, seed) {
+  const rnd = seeded(seed);
+  const [bg1, bg2, a1, a2, b1, b2] = pal;
+  const bgId = 'bg' + (uid++);
+  let s = `<svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false"><defs><linearGradient id="${bgId}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${bg1}"/><stop offset="1" stop-color="${bg2}"/></linearGradient></defs><rect width="400" height="400" fill="url(#${bgId})"/>`;
+  if (type === 'box') {
+    s += `<ellipse cx="200" cy="350" rx="130" ry="16" fill="#00000014"/><rect x="85" y="215" width="230" height="130" rx="14" fill="#2b2224"/><rect x="85" y="215" width="230" height="22" rx="8" fill="#3a2f31"/>`;
+    const pos = [[125, 200], [175, 190], [225, 190], [275, 200], [150, 228], [200, 222], [250, 228], [110, 238], [290, 238]];
+    pos.forEach(([x, y], i) => s += rose(x, y, 30 + rnd() * 6, i % 3 ? a1 : b1, i % 3 ? a2 : b2));
+    s += `<text x="200" y="300" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="26" fill="#e9d8c8" font-style="italic">с любовью</text></svg>`;
+    return s;
+  }
+  if (type === 'gift') {
+    s += `<ellipse cx="200" cy="350" rx="110" ry="14" fill="#00000014"/>
+    <circle cx="200" cy="250" r="78" fill="#c99b74"/><circle cx="200" cy="168" r="58" fill="#d3a882"/>
+    <circle cx="152" cy="122" r="22" fill="#c99b74"/><circle cx="248" cy="122" r="22" fill="#c99b74"/><circle cx="152" cy="122" r="11" fill="#e8c9ab"/><circle cx="248" cy="122" r="11" fill="#e8c9ab"/>
+    <ellipse cx="200" cy="185" rx="26" ry="20" fill="#ecd3ba"/><circle cx="200" cy="178" r="7" fill="#2b2224"/><circle cx="180" cy="158" r="5" fill="#2b2224"/><circle cx="220" cy="158" r="5" fill="#2b2224"/>
+    <path d="M170 226 L200 240 L230 226 L230 250 L200 238 L170 250Z" fill="${a1}"/><circle cx="200" cy="239" r="7" fill="${a2}"/>
+    <circle cx="140" cy="300" r="26" fill="#d3a882"/><circle cx="260" cy="300" r="26" fill="#d3a882"/>`;
+    s += petalFlower(285, 250, 26, 6, b1, b2, 15) + leaf(268, 268, 30, 130) + '</svg>';
+    return s;
+  }
+  // stems + wrap
+  s += `<ellipse cx="200" cy="372" rx="90" ry="10" fill="#00000012"/>`;
+  for (let i = 0; i < 9; i++) s += `<path d="M${200 + (i - 4) * 4} 360 L${200 + (i - 4) * 18} 220" stroke="#6f8f63" stroke-width="4"/>`;
+  s += `<path d="M95 175 L200 372 L305 175 Q250 205 200 200 Q150 205 95 175Z" fill="${type === 'mono' ? '#f3ede4' : '#efe4d6'}" opacity=".96"/><path d="M95 175 L200 372 L140 190Z" fill="#00000010"/>`;
+  s += `<path d="M175 300 Q200 285 225 300 L215 320 Q200 310 185 320Z" fill="${a1}"/>`;
+  for (let i = 0; i < 9; i++) s += leaf(200 + (rnd() - .5) * 160, 150 + rnd() * 60, 45 + rnd() * 25, rnd() * 360);
+  const pts = [[200, 120], [150, 140], [250, 140], [120, 175], [280, 175], [175, 172], [225, 172], [200, 155], [160, 108], [240, 108]];
+  pts.forEach(([x, y], i) => {
+    if (type === 'roses') s += rose(x, y, 30, i % 4 === 3 ? b1 : a1, i % 4 === 3 ? b2 : a2);
+    else if (type === 'mono') s += tulip(x, y - 6, 34, a1, a2);
+    else s += i % 3 === 0 ? petalFlower(x, y, 36, 7, b1, b2, rnd() * 50) : i % 3 === 1 ? rose(x, y, 28, a1, a2) : petalFlower(x, y, 30, 5, a1, b2, rnd() * 60);
+  });
+  if (type === 'author' || type === 'mix') s += gyps(200, 140, 40, 110, rnd);
+  return s + '</svg>';
+}
+
+const P = {
+  blush: ['#f8e6ea', '#f1d9c9', '#e58aa5', '#fbd3df', '#f6f1ea', '#ffffff'],
+  red: ['#f5e4e0', '#ead7cf', '#a51f3d', '#d9466a', '#f2a4bc', '#ffd9e3'],
+  peach: ['#fbeee2', '#f4dcc8', '#f29b74', '#ffd2b8', '#f7d36b', '#fff3c4'],
+  lilac: ['#efe8f5', '#e2e6ef', '#9a78c4', '#d4c2ee', '#f6f1ea', '#ffffff'],
+  tulip: ['#fdf0f0', '#ecf1e2', '#ef6f8f', '#ffc2d0', '#ffffff', '#ffffff'],
+  white: ['#eef1ea', '#f6f1ea', '#f5f0e8', '#ffffff', '#c7d8b5', '#eef6e3'],
+  boxpink: ['#f6e8ea', '#efe0d6', '#d65a80', '#f7b5c8', '#f6f1ea', '#ffffff'],
+  teddy: ['#f4ece2', '#eadfd2', '#b8466a', '#e58aa5', '#f29b74', '#ffd2b8']
+};
+const products = [
+  { t: 'Нежность', d: 'Пастельный микс: кустовые розы, эустома, гипсофила', p: 2900, cat: 'author', type: 'author', pal: P.blush, tag: 'Хит',
+    sell: 'Букет, который хочется обнять. Беспроигрышный выбор для мамы, подруги и любимой.',
+    spec: { 'Состав': 'кустовая роза, эустома, гипсофила, зелень', 'Высота': '≈ 40 см', 'Упаковка': 'матовая плёнка, лента', 'Кому подойдёт': 'маме, подруге, коллеге' } },
+  { t: '25 красных роз', d: 'Классика, которая всегда попадает в сердце', p: 4500, cat: 'roses', type: 'roses', pal: P.red,
+    sell: 'Когда нужно сказать «люблю» без слов. 25 роз — жест, который запомнят.',
+    spec: { 'Состав': '25 красных роз', 'Высота': '≈ 50 см', 'Упаковка': 'плёнка или лента на выбор', 'Кому подойдёт': 'любимой, на годовщину' } },
+  { t: 'Персиковый закат', d: 'Тёплые оттенки, хризантемы и розы', p: 3400, cat: 'author', type: 'mix', pal: P.peach, tag: 'Новинка',
+    sell: 'Тёплый, солнечный букет — поднимает настроение даже в пасмурную уральскую осень.',
+    spec: { 'Состав': 'роза, хризантема, эустома, гипсофила', 'Высота': '≈ 45 см', 'Упаковка': 'крафт и тишью', 'Кому подойдёт': 'на день рождения, без повода' } },
+  { t: 'Тюльпаны', d: '15 тюльпанов в крафтовой упаковке', p: 2100, cat: 'mono', type: 'mono', pal: P.tulip,
+    sell: 'Простые и трогательные. Тюльпаны дарят ощущение весны и долго стоят в вазе.',
+    spec: { 'Состав': '15 тюльпанов', 'Высота': '≈ 40 см', 'Упаковка': 'крафт, лента', 'Кому подойдёт': 'коллеге, учителю, маме' } },
+  { t: 'Розы в коробке', d: 'Шляпная коробка, 15–19 роз', p: 5200, cat: 'box', type: 'box', pal: P.boxpink, tag: 'Хит',
+    sell: 'Не нужна ваза — цветы стоят во флористической губке до 7–10 дней. Эффектно и удобно.',
+    spec: { 'Состав': '15–19 роз', 'Размер': 'коробка ⌀ 20 см', 'Упаковка': 'шляпная коробка, надпись', 'Кому подойдёт': 'на праздник, в офис' } },
+  { t: 'Лавандовое утро', d: 'Сиреневые акценты, эустома и розы', p: 3800, cat: 'author', type: 'mix', pal: P.lilac,
+    sell: 'Нежный и необычный: сиреневые оттенки выделят ваш подарок среди привычных букетов.',
+    spec: { 'Состав': 'роза, эустома, гипсофила, зелень', 'Высота': '≈ 45 см', 'Упаковка': 'матовая плёнка, лента', 'Кому подойдёт': 'девушке, подруге' } },
+  { t: 'Белое облако', d: 'Белые розы и много воздушной гипсофилы', p: 3200, cat: 'roses', type: 'author', pal: P.white,
+    sell: 'Лёгкий и чистый, как первое свидание. Идеален для свадьбы, выписки и тёплых слов.',
+    spec: { 'Состав': 'белые розы, гипсофила', 'Высота': '≈ 40 см', 'Упаковка': 'белая плёнка, лента', 'Кому подойдёт': 'на выписку, свадьбу' } },
+  { t: 'Мишка + букет', d: 'Мягкая игрушка и мини-букет в подарок', p: 2600, cat: 'gift', type: 'gift', pal: P.teddy,
+    sell: 'Двойная радость: цветы порадуют сегодня, а мишка останется на память надолго.',
+    spec: { 'Состав': 'мягкий мишка + мини-букет', 'Размер игрушки': '≈ 30 см', 'Упаковка': 'подарочный пакет', 'Кому подойдёт': 'ребёнку, девушке' } },
+  { t: 'Розовые тюльпаны', d: '25 тюльпанов — весна в любое время года', p: 3300, cat: 'mono', type: 'mono', pal: P.blush,
+    sell: 'Пышная охапка розовых тюльпанов — простой способ сделать день по-настоящему весенним.',
+    spec: { 'Состав': '25 розовых тюльпанов', 'Высота': '≈ 40 см', 'Упаковка': 'крафт, лента', 'Кому подойдёт': 'на 8 Марта, маме' } }
+];
+const priceHtml = p => `<small>от</small> ${p.toLocaleString('ru-RU')} ₽`;
+const plusIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>';
+
+const grid = document.getElementById('grid');
+grid.innerHTML = products.map((x, i) => `
+  <article class="card reveal" data-cat="${x.cat}" aria-labelledby="p${i}">
+    <div class="card-art" aria-hidden="true">${bouquet(x.type, x.pal, i + 7)}${x.tag ? `<span class="tag">${x.tag}</span>` : ''}</div>
+    <div class="card-body"><h3 id="p${i}">${x.t}</h3><p>${x.d}</p>
+      <div class="card-foot"><p class="price">${priceHtml(x.p)}</p>
+        <button class="btn btn-secondary btn-sm more" type="button" data-i="${i}" aria-haspopup="dialog" aria-label="Подробнее о букете «${x.t}»">Подробнее</button>
+        <button class="btn btn-icon add" type="button" data-t="${x.t}" aria-label="Добавить «${x.t}» в заявку">${plusIcon}</button>
+      </div>
+    </div>
+  </article>`).join('');
+document.getElementById('heroArt').innerHTML = bouquet('author', ['#f6dce3', '#e8ecd9', '#d65a80', '#f7b5c8', '#f6f1ea', '#ffffff'], 3);
+
+// ---------- Фильтр каталога ----------
+const tabs = document.getElementById('tabs'), catCount = document.getElementById('catCount');
+tabs.addEventListener('click', e => {
+  const b = e.target.closest('.tab'); if (!b) return;
+  tabs.querySelectorAll('.tab').forEach(t => t.setAttribute('aria-pressed', t === b));
+  let n = 0;
+  grid.querySelectorAll('.card').forEach(c => {
+    const hide = b.dataset.f !== 'all' && c.dataset.cat !== b.dataset.f;
+    c.classList.toggle('hide', hide);
+    if (!hide) { n++; c.classList.add('in'); }
+  });
+  catCount.textContent = `Показано букетов: ${n}`;
+  // при горизонтальной прокрутке фильтров держим активный в поле зрения, не трогая вертикальную прокрутку страницы
+  if (tabs.scrollWidth > tabs.clientWidth) tabs.scrollTo({ left: b.offsetLeft - (tabs.clientWidth - b.offsetWidth) / 2, behavior: 'smooth' });
+});
+tabs.addEventListener('scroll', () => tabs.classList.toggle('at-end', tabs.scrollLeft + tabs.clientWidth >= tabs.scrollWidth - 4), { passive: true });
+
+// ---------- Добавить в заявку ----------
+const msg = document.getElementById('msg');
+function addToOrder(t) {
+  msg.value = (msg.value ? msg.value + '\n' : '') + 'Букет «' + t + '»';
+  toast('«' + t + '» добавлен в заявку');
+}
+grid.addEventListener('click', e => {
+  const m = e.target.closest('.more'); if (m) return openProduct(+m.dataset.i, m);
+  const b = e.target.closest('.add'); if (b) addToOrder(b.dataset.t);
+});
+
+// ---------- Окно «Подробнее» ----------
+const pd = document.getElementById('pd');
+let pdOpener = null;
+function openProduct(i, opener) {
+  const x = products[i];
+  pdOpener = opener;
+  pd.querySelector('.pd-art').innerHTML = bouquet(x.type, x.pal, i + 7);
+  pd.querySelector('#pdTitle').textContent = x.t;
+  pd.querySelector('.pd-desc').textContent = x.d;
+  pd.querySelector('.pd-sell').textContent = x.sell;
+  pd.querySelector('.pd-specs').innerHTML = Object.entries(x.spec).map(([k, v]) => `<li><span>${k}</span><b>${v}</b></li>`).join('');
+  pd.querySelector('.price').innerHTML = priceHtml(x.p);
+  pd.querySelector('.pd-add').onclick = () => { pd.close(); addToOrder(x.t); };
+  pd.querySelector('.pd-scroll').scrollTop = 0;
+  document.documentElement.classList.add('lock');
+  pd.showModal();
+  pd.querySelector('.pd-add').focus({ preventScroll: true });
+}
+pd.addEventListener('close', () => {
+  document.documentElement.classList.remove('lock');
+  if (pdOpener) pdOpener.focus({ preventScroll: true });
+});
+pd.querySelector('.pd-close').addEventListener('click', () => pd.close());
+pd.addEventListener('click', e => { if (e.target === pd) pd.close(); });
+
+document.querySelectorAll('.occ-item').forEach(a => a.addEventListener('click', () => { document.getElementById('occ').value = a.dataset.occ; }));
+
+// ---------- Форма (заявка уходит сообщением в WhatsApp) ----------
+const WA = '79049806673';
+const form = document.getElementById('form'), formStatus = document.getElementById('formStatus');
+const nameInput = document.getElementById('name'), phoneInput = document.getElementById('phone'), dateInput = document.getElementById('date');
+const pad = n => String(n).padStart(2, '0');
+const now = new Date();
+dateInput.min = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`; // локальная дата, не UTC
+
+function setError(input, text) {
+  document.getElementById(input.id + 'Err').textContent = text;
+  if (text) input.setAttribute('aria-invalid', 'true'); else input.removeAttribute('aria-invalid');
+}
+[nameInput, phoneInput, dateInput].forEach(el => el.addEventListener('input', () => setError(el, '')));
+
+form.addEventListener('submit', e => {
+  e.preventDefault();
+  const name = nameInput.value.trim(), digits = phoneInput.value.replace(/\D/g, '');
+  setError(nameInput, name ? '' : 'Как к вам обращаться?');
+  setError(phoneInput, digits.length >= 11 ? '' : 'Укажите номер полностью: +7 и 10 цифр');
+  setError(dateInput, dateInput.value && dateInput.value < dateInput.min ? 'Выберите сегодняшнюю или более позднюю дату' : '');
+  const firstBad = form.querySelector('[aria-invalid="true"]');
+  if (firstBad) { formStatus.textContent = ''; firstBad.focus(); return; }
+
+  const budget = form.querySelector('input[name="budget"]:checked');
+  const lines = [
+    'Здравствуйте! Заявка с сайта «Соцветие».',
+    'Имя: ' + name,
+    'Телефон: ' + phoneInput.value,
+    'Повод: ' + document.getElementById('occ').value,
+    dateInput.value && 'Дата: ' + dateInput.value.split('-').reverse().join('.'),
+    budget && 'Бюджет: ' + budget.value,
+    msg.value.trim() && 'Пожелания: ' + msg.value.trim()
+  ].filter(Boolean);
+  const win = window.open('https://wa.me/' + WA + '?text=' + encodeURIComponent(lines.join('\n')), '_blank', 'noopener');
+  // данные формы не стираем: заявка считается отправленной только после отправки сообщения в WhatsApp
+  formStatus.textContent = win === null
+    ? 'Браузер заблокировал открытие WhatsApp. Позвоните нам: +7 (904) 980-66-73 — данные формы сохранены.'
+    : 'Мы открыли WhatsApp с готовым сообщением — нажмите там «Отправить». Данные формы сохранены.';
+});
+// маска телефона
+phoneInput.addEventListener('input', e => {
+  let d = e.target.value.replace(/\D/g, '').replace(/^[78]/, '').slice(0, 10);
+  let r = '+7';
+  if (d.length) r += ' (' + d.slice(0, 3);
+  if (d.length >= 3) r += ') ' + d.slice(3, 6);
+  if (d.length >= 6) r += '-' + d.slice(6, 8);
+  if (d.length >= 8) r += '-' + d.slice(8, 10);
+  e.target.value = d.length ? r : '';
+});
+
+let tt;
+function toast(t) { const el = document.getElementById('toast'); el.textContent = t; el.classList.add('show'); clearTimeout(tt); tt = setTimeout(() => el.classList.remove('show'), 2600); }
+
+// ---------- Шапка и меню ----------
+const header = document.querySelector('header');
+const burger = document.getElementById('burger'), menu = document.getElementById('menu');
+const isMenuOpen = () => menu.classList.contains('open');
+function setMenu(open, focusFirst) {
+  menu.classList.toggle('open', open);
+  header.classList.toggle('menu-open', open);
+  burger.setAttribute('aria-expanded', open);
+  burger.setAttribute('aria-label', open ? 'Закрыть меню' : 'Открыть меню');
+  if (open && focusFirst) menu.querySelector('a').focus();
+}
+burger.addEventListener('click', e => setMenu(!isMenuOpen(), e.detail === 0)); // фокус в меню — при открытии с клавиатуры
+menu.addEventListener('click', e => { if (e.target.closest('a')) setMenu(false); });
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && isMenuOpen()) { setMenu(false); burger.focus(); }
+});
+document.addEventListener('click', e => { if (isMenuOpen() && !header.contains(e.target)) setMenu(false); });
+matchMedia('(min-width:1024px)').addEventListener('change', () => setMenu(false));
+
+// логотип — на начальный экран (шапка липкая, поэтому якорь #top не прокручивал)
+document.querySelector('.logo').addEventListener('click', e => {
+  e.preventDefault();
+  setMenu(false);
+  scrollTo({ top: 0, behavior: matchMedia('(prefers-reduced-motion:reduce)').matches ? 'auto' : 'smooth' });
+  history.replaceState(null, '', location.pathname + location.search);
+});
+addEventListener('scroll', () => header.classList.toggle('scrolled', scrollY > 10), { passive: true });
+
+// ---------- Обводка шагов: рисуется один раз, по очереди ----------
+const steps = document.querySelector('.steps');
+steps.querySelectorAll('.step').forEach(st => st.insertAdjacentHTML('beforeend', '<svg class="outline" aria-hidden="true"><rect x="1" y="1" rx="21"/></svg>'));
+function sizeOutlines() {
+  steps.querySelectorAll('.step').forEach(st => {
+    const r = st.querySelector('.outline rect');
+    r.setAttribute('width', Math.max(st.offsetWidth - 2, 0));
+    r.setAttribute('height', Math.max(st.offsetHeight - 2, 0));
+    r.style.setProperty('--len', Math.ceil(r.getTotalLength()) + 2);
+  });
+}
+sizeOutlines();
+if ('ResizeObserver' in window) new ResizeObserver(sizeOutlines).observe(steps);
+
+// ---------- Появление при скролле ----------
+if ('IntersectionObserver' in window) {
+  new IntersectionObserver((es, o) => {
+    if (!es[0].isIntersecting) return;
+    sizeOutlines(); steps.classList.add('draw'); o.disconnect();
+  }, { threshold: .4 }).observe(steps);
+  const io = new IntersectionObserver(es => es.forEach(x => { if (x.isIntersecting) { x.target.classList.add('in'); io.unobserve(x.target); } }), { threshold: .12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+} else {
+  document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
+  steps.classList.add('draw');
+}
+</script>
+</body>
+</html>
